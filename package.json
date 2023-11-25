@@ -1,0 +1,12 @@
+{
+  "name": "bh-react-bootstrap",
+  "version": "1.0.0",
+  "description": "React Bootstrap components for Blue Hour projects",
+  "main": "index.js",
+  "repository": "git@github.com:djghokie/bh-react-bootstrap.git",
+  "author": "Daniel Gay <djghokie@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "reactstrap": "^9.2.1"
+  }
+}
