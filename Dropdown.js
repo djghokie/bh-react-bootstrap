@@ -39,3 +39,30 @@ export function ActionsDropdown({ color, actions=[], selected, defaultLabel="<se
         </UncontrolledDropdown>
 	)
 }
+
+export function ItemDropdown({ items, labelProperty, selectedItem, color, onItemSelected }) {
+	return (
+		<UncontrolledDropdown className="btn-group">
+		  <DropdownToggle
+				aria-expanded={false}
+				aria-haspopup={true}
+				caret
+				color={color}
+				data-toggle="dropdown"
+				type="button"
+				className="text-uppercase font-weight-bold"
+		  		>
+			{selectedItem[labelProperty]}
+		  </DropdownToggle>
+		  <DropdownMenu>
+			{
+				items.map(item =>
+					<DropdownItem key={item.id} onClick={z => onItemSelected(item)}>
+					  {item[labelProperty]}
+					</DropdownItem>
+				)
+			}
+		  </DropdownMenu>
+		</UncontrolledDropdown>
+	);
+}
