@@ -66,3 +66,32 @@ export function ItemDropdown({ items, labelProperty, selectedItem, color, onItem
 		</UncontrolledDropdown>
 	);
 }
+
+export function NumberDropdown({ min=1, max=10, selected, color, onSelected }) {
+	function renderItems() {
+		const items = [];
+
+		for (let i = min; i <= max; i++) {
+			items.push(<DropdownItem key={i} onClick={z => onSelected(i)}>{i}</DropdownItem>)
+		}
+
+		return items;
+	}
+
+	return (
+		<UncontrolledDropdown className="btn-group">
+		  <DropdownToggle
+				aria-expanded={false}
+				aria-haspopup={true}
+				caret
+				color={color}
+				data-toggle="dropdown"
+				type="button"
+				className="text-uppercase font-weight-bold"
+		  		>
+			{selected === undefined ? '<select>' : selected}
+		  </DropdownToggle>
+		  <DropdownMenu>{ renderItems() }</DropdownMenu>
+		</UncontrolledDropdown>
+	);
+}
