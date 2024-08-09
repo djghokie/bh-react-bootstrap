@@ -40,7 +40,7 @@ export function ActionsDropdown({ color, actions=[], selected, defaultLabel="<se
 	)
 }
 
-export function ItemDropdown({ items, labelProperty, selectedItem, color, onItemSelected }) {
+export function ItemDropdown({ items=[], labelProperty, selectedItem={}, color, onItemSelected }) {
 	return (
 		<UncontrolledDropdown className="btn-group">
 		  <DropdownToggle
