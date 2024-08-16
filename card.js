@@ -149,26 +149,6 @@ export function ViewNavCard({ title=DEFAULT_CARD_TITLE, secondaryTitle, onViewCh
 	)
 }
 
-export function FormCard({ title="Form", secondaryTitle, complete, onSave, onCancel, children }) {
-	return (
-		<Card>
-		  <CardHeader className="border-0">
-		    <div className="col">
-			  <h6 className="text-muted text-uppercase ls-1 mb-1">{secondaryTitle}</h6>
-			  <h3 className="mb-0">{title}</h3>
-		    </div>
-		  </CardHeader>
-	      <CardBody>
-			{ children }
-		  </CardBody>
-		  <CardFooter className="d-flex justify-content-end">
-			<IconButton icon="fas fa-hard-drive" label="Save" disabled={!complete} onClick={onSave} />
-			<IconButton icon="fas fa-xmark" label="Cancel" color="danger" onClick={onCancel} />
-		  </CardFooter>
-		</Card>
-	)
-}
-
 export function SearchCard({ title="Search", secondaryTitle, contentHeight, placeholder, onQueryChange, children }) {
 	const [searchQuery, setSearchQuery] = React.useState('');
 
