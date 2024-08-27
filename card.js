@@ -41,20 +41,6 @@ export function ControlsHeader({ title=DEFAULT_CARD_TITLE, subtitle, HeaderContr
 	)
 }
 
-export function ActionHeader({ title=DEFAULT_CARD_TITLE, subtitle, actions=[], actionVariant }) {
-	return (
-		<CardHeader className="d-flex justify-content-between align-items-start">
-		<div>
-		  { subtitle && <h6 className="text-muted text-uppercase mb-1">{subtitle}</h6> }
-		  <h4 className="mt-0 mb-0">{title}</h4>
-		</div>
-		<div className="mb-0">
-		  <ButtonToolbar actions={actions} variant={actionVariant} />
-		</div>
-	  </CardHeader>
-	)
-}
-
 export function ViewNavHeader({ title=DEFAULT_CARD_TITLE, subtitle, views, activeView, onViewChanged }) {
 	return (
 		<CardHeader className="d-flex justify-content-between align-items-start">
