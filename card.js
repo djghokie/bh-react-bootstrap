@@ -66,27 +66,6 @@ export function SimpleCard({ title=DEFAULT_CARD_TITLE, subtitle, HeaderControls,
 	)
 }
 
-export function ActionsCard({ title="Actions Card", children, actions=[], loading=false }) {
-	if (loading)  return <LoadingCard title={title} />
-
-	return (
-		<Card>
-		  <CardHeader className='pt-1 d-flex justify-content-between align-items-end'>
-		    <CardTitle tag="h5">{ title }</CardTitle>
-			<div className='d-flex'>
-			  <ButtonBar actions={actions} />
-			</div>
-		  </CardHeader>
-		  <CardBody>
-		    { children }
-		  </CardBody>
-		  {/* <CardFooter>
-		    <FooterAction />
-		  </CardFooter> */}
-	    </Card>
-	)
-}
-
 /**
  * WIP: issue with re-rendering...
  * 

@@ -7,6 +7,8 @@ import {
 	UncontrolledDropdown,
 } from "reactstrap";
 
+import classnames from 'classnames';
+
 function noop(e) {
 	e.preventDefault();
 }
@@ -20,17 +22,26 @@ export function Action({ label, icon, onClick=noop }) {
 	)
 }
 
-export function ActionsDropdown({ color, actions=[], selected, defaultLabel="<select>", onChange=noop }) {
+export function ActionsDropdown({ color, actions=[], selected, defaultLabel="<select>", icon, onChange=noop }) {
 	const selectedAction = actions.find(a => a.id === selected) || {};
 	const { label=defaultLabel } = selectedAction;
 
+	function doTrigger(action) {
+		if (action.onTrigger) action.onTrigger();
+	}
+
+	const iconClasses = classnames({
+		'mr-2': icon,
+		[icon]: icon
+	})
+
 	return (
-        <UncontrolledDropdown>
-          <DropdownToggle className="m-0" caret color={color}>{label}</DropdownToggle>
+        <UncontrolledDropdown group>
+          <DropdownToggle className="m-0" caret color={color}><i className={iconClasses} />{label}</DropdownToggle>
           <DropdownMenu>
 			{ actions.map(a => {
 				return (
-					<DropdownItem key={a.id} onClick={z => onChange(a)}>
+					<DropdownItem key={a.id} onClick={z => doTrigger(a)}>
 					  { a.label }
 					</DropdownItem>
 				)
