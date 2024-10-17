@@ -51,21 +51,29 @@ export function ActionsDropdown({ color, actions=[], selected, defaultLabel="<se
 	)
 }
 
-export function ItemDropdown({ items=[], labelProperty, selectedItem={}, color, onItemSelected }) {
+export function ItemDropdown({ className, toggleClasses, items=[], labelProperty="label", selectedItem, color,
+		noSelectionLabel,
+		headerLabel,
+		onItemSelected
+	}) {
+
+	const classes = classnames("btn-group", className);
+
 	return (
-		<UncontrolledDropdown className="btn-group">
+		<UncontrolledDropdown className={classes}>
 		  <DropdownToggle
+				className={toggleClasses}
+				type="button"
+				color={color}
 				aria-expanded={false}
 				aria-haspopup={true}
 				caret
-				color={color}
 				data-toggle="dropdown"
-				type="button"
-				className="text-uppercase font-weight-bold"
 		  		>
-			{selectedItem[labelProperty]}
+			{ selectedItem ? selectedItem[labelProperty] : <i>{noSelectionLabel}</i> }
 		  </DropdownToggle>
 		  <DropdownMenu>
+		    { headerLabel && <DropdownItem header>{headerLabel}</DropdownItem> }
 			{
 				items.map(item =>
 					<DropdownItem key={item.id} onClick={z => onItemSelected(item)}>

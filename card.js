@@ -5,18 +5,17 @@
 
 import React from "react";
 
+import PropTypes from "prop-types";
+
 import {
 	Card,
 	CardBody,
 	CardFooter,
 	CardHeader,
-	CardTitle,
 } from "reactstrap";
 
-// import { ButtonBar } from 'bh-dashboard/Actions';
-// import { Card as LoadingCard  } from 'bh-dashboard/Loading';
-
-// import { ButtonToolbar } from "./toolbar";
+import { View as ViewLoading } from './loading';
+import { ViewNav } from "./nav";
 
 const DEFAULT_CARD_TITLE = "Card Title"
 
@@ -145,3 +144,101 @@ export function SearchCard({ title="Search", secondaryTitle, contentHeight, plac
 		</Card>
 	)
 }
+
+export function ItemsCard(props) {
+	const {
+		title="Items",
+		secondaryTitle,
+		className,
+		contentHeight,
+		loading,
+		items=[],
+		navDetails,
+		actions,
+		views=[],
+		activeView,
+		viewsComponent="tabs",
+		onViewChanged,
+		noItemsMessage="No items to display",
+		message,
+		previous,
+		next,
+		ItemsComponent = z => <div className="text-center">ItemsComponent not configured</div>
+	} = props;
+
+	const hasItems = items.length > 0;
+
+	if (contentHeight) {
+		var bodyStyle = {
+			height: contentHeight,
+			overflowY: "scroll"
+		}
+	}
+
+	function renderViewControls() {
+		if (viewsComponent === 'dropdown')
+			return (
+				<ActionsDropdown color="primary" actions={views} selected={activeView}
+					onChange={i => onViewChanged(i.id)}
+					/>
+			)
+
+		return <ViewNav views={views} activeView={activeView} onViewChanged={onViewChanged} />
+	}
+
+	return (
+		<Card className={className}>
+		  <CardHeader className="border-0 d-flex justify-content-between">
+		    <div>
+			  <h6 className="text-muted text-uppercase ls-1 mb-1">{secondaryTitle}</h6>
+			  <h5 className="my-0">{title}</h5>
+		    </div>
+		  
+		    <div className="d-flex align-items-center">
+			  { renderViewControls() }
+			  {/* <ButtonBar actions={actions} /> */}
+			</div>
+		  </CardHeader>
+
+		  <div style={bodyStyle}>
+		    { !loading && !hasItems && <div className="my-5 text-center"><i>{noItemsMessage}</i></div> }
+		  
+		    { hasItems && <ItemsComponent items={items} navDetails={navDetails} /> }
+		  </div>
+		  
+		  <CardFooter className='d-flex justify-content-between align-items-start'>
+			<div>
+			  { loading && <ViewLoading /> }
+			</div>
+
+			<div>
+			  { message && <IconAlert color="warning" icon="fas fa-exclamation" text={message} /> }
+			</div>
+
+			<div className='d-flex justify-content-end'>
+			  <div>
+			    { previous && <PreviousPage className="mx-1" disabled={!hasItems} onClick={previous} /> }
+			    { next && <NextPage className="mx-1" disabled={!hasItems} onClick={next} /> }
+			  </div>
+			</div>
+		  </CardFooter>
+		</Card>
+	)
+}
+
+ItemsCard.propTypes = {
+	title: PropTypes.string,  // card title
+	secondaryTitle: PropTypes.string,  // card secondary title
+	className: PropTypes.string,  // classes to apply to Card
+	loading: PropTypes.bool,  // whether or not item data is being loading from an external source
+	items: PropTypes.arrayOf(PropTypes.object),  // items to display
+	navDetails: PropTypes.func,  // function to navigate to item details
+	// views=[],
+	// activeView,
+	// onViewChanged,
+	noItemsMessage: PropTypes.string,  // message to display if no items are available
+	message: PropTypes.string,  // message to display in footer (errors, no items in page, etc)
+	previous: PropTypes.func,  // if provided, previous button displayed and function will be called onClick
+	next: PropTypes.func,  // if provided, next button displayed and function will be called onClick
+	ItemsComponent:  PropTypes.elementType  // React component to render items
+};
