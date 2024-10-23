@@ -49,7 +49,7 @@ export function ButtonToolbar({ actions=[], variant="primary", showLabel=true, s
 		  {  actions.map(a => {
 				const { id, label, icon, disabled } = a;
 
-			    return <Button key={id} id={id} className={classes}
+			    return <Button key={id} id={id} className2={classes}
 					color={variant}
 				    disabled={disabled || actionInFlight}
 					onClick={e => doAction(e, a)} {...a}>
@@ -68,6 +68,6 @@ export function AltToolbar({ actions }) {
 	return <ButtonToolbar actions={actions} variant="link" buttonClasses="text-dark" />
 }
 
-export function IconToolbar({ actions }) {
-	return <ButtonToolbar actions={actions} variant="link" buttonClasses="text-dark" />
+export function IconToolbar({ variant="link", actions }) {
+	return <ButtonToolbar actions={actions} variant={variant} buttonClasses="text-dark" />
 }

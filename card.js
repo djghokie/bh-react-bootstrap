@@ -12,10 +12,12 @@ import {
 	CardBody,
 	CardFooter,
 	CardHeader,
+	CardTitle
 } from "reactstrap";
 
 import { View as ViewLoading } from './loading';
 import { ViewNav } from "./nav";
+import { IconToolbar } from "./toolbar";
 
 const DEFAULT_CARD_TITLE = "Card Title"
 
@@ -25,6 +27,21 @@ export function SimpleHeader({ title=DEFAULT_CARD_TITLE, subtitle }) {
 		  { subtitle && <h6 className="text-muted text-uppercase ls-1 mb-1">{subtitle}</h6> }
 		  <h3 className="mb-0">{title}</h3>
 	    </CardHeader>
+	)
+}
+
+export function ActionHeader({ title=DEFAULT_CARD_TITLE, subtitle, actions=[], actionVariant }) {
+	return (
+		<CardHeader className="d-flex justify-content-between align-items-start">
+		<div>
+		  { subtitle && <h6 className="small text-uppercase mb-1">{subtitle}</h6> }
+		  <h4 className="mt-0 mb-0">{title}</h4>
+		</div>
+		<div className="mb-0">
+		  {/* <ButtonToolbar actions={actions} variant={actionVariant} /> */}
+		  <IconToolbar actions={actions} />
+		</div>
+	  </CardHeader>
 	)
 }
 
@@ -62,6 +79,22 @@ export function SimpleCard({ title=DEFAULT_CARD_TITLE, subtitle, HeaderControls,
 			{ children }
 		  </CardBody>
 		</Card>
+	)
+}
+
+export function ActionsCard({ className, title="Actions Card", subtitle, children, actions=[], loading=false }) {
+	if (loading)  return <LoadingCard title={title} />
+
+	return (
+		<Card className={className}>
+		  <ActionHeader title={title} subtitle={subtitle} actions={actions} />
+		  <CardBody>
+		    { children }
+		  </CardBody>
+		  {/* <CardFooter>
+		    <FooterAction />
+		  </CardFooter> */}
+	    </Card>
 	)
 }
 
@@ -148,6 +181,7 @@ export function SearchCard({ title="Search", secondaryTitle, contentHeight, plac
 export function ItemsCard(props) {
 	const {
 		title="Items",
+		titleTag="h4",
 		secondaryTitle,
 		className,
 		contentHeight,
@@ -191,12 +225,12 @@ export function ItemsCard(props) {
 		  <CardHeader className="border-0 d-flex justify-content-between">
 		    <div>
 			  <h6 className="text-muted text-uppercase ls-1 mb-1">{secondaryTitle}</h6>
-			  <h5 className="my-0">{title}</h5>
+			  <CardTitle tag={titleTag}>{title}</CardTitle>
 		    </div>
 		  
 		    <div className="d-flex align-items-center">
 			  { renderViewControls() }
-			  {/* <ButtonBar actions={actions} /> */}
+			  <IconToolbar actions={actions} />
 			</div>
 		  </CardHeader>
 
