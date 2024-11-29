@@ -86,7 +86,7 @@ export function ItemDropdown({ className, toggleClasses, items=[], labelProperty
 	);
 }
 
-export function NumberDropdown({ min=1, max=10, selected, color, onSelected }) {
+export function NumberDropdown({ min=1, max=10, selected, color, direction, onSelected }) {
 	function renderItems() {
 		const items = [];
 
@@ -98,7 +98,7 @@ export function NumberDropdown({ min=1, max=10, selected, color, onSelected }) {
 	}
 
 	return (
-		<UncontrolledDropdown className="btn-group">
+		<UncontrolledDropdown className="btn-group" direction={direction}>
 		  <DropdownToggle
 				aria-expanded={false}
 				aria-haspopup={true}
