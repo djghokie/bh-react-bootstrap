@@ -4,6 +4,7 @@ import {
     FormGroup,
 	FormText,
     Input,
+    Label
 } from 'reactstrap';
 
 import classnames from "classnames";
@@ -42,4 +43,20 @@ export function TextField({ type="text", label, size, focusOnLoad, helpText, err
 		  <div className='m-2 text-danger invalid-feedback-doesnotwork'>{errorMessage}</div>
 	    </FormGroup>
 	)
+}
+
+export function CheckBox({ className, label, checked, onChange }) {
+    function doChange(e) {
+        if (onChange) onChange(e.target.checked);
+    }
+
+    return (
+        <FormGroup check className={className}>
+          <Label check>
+            <Input type="checkbox" checked={checked} onChange={doChange} />
+            <span className="form-check-sign" />
+            { label }
+          </Label>
+        </FormGroup>
+    )
 }
